@@ -1,0 +1,52 @@
+// Modular Desk Organizer
+$fn = 100; // Smoothness of curves
+
+// Dimensions for the base module
+base_length = 100;  // mm
+base_width = 100;   // mm
+base_height = 10;   // mm
+
+// Dimensions for pen holder
+pen_holder_width = 30; // mm
+pen_holder_depth = 100; // mm
+pen_holder_height = 90; // mm
+
+// Dimensions for sticky note holder
+note_holder_length = 80; // mm
+note_holder_width = 80;  // mm
+note_holder_height = 20; // mm
+
+// Create Base Module
+module base_module() {
+    cube([base_length, base_width, base_height]);
+}
+
+// Create Pen Holder
+module pen_holder() {
+    difference() {
+        cube([pen_holder_width, pen_holder_depth, pen_holder_height]);
+        
+        // Cut out section for pens
+        translate([5, 5, 0]) {
+            cube([pen_holder_width - 10, pen_holder_depth - 10, pen_holder_height - 5]);
+        }
+    }
+}
+
+// Create Sticky Note Holder
+module note_holder() {
+    cube([note_holder_length, note_holder_width, note_holder_height]);
+}
+
+// Combine All Modules
+translate([0, 0, 0]) {
+    base_module();
+}
+
+translate([0, base_width + 5, 0]) {
+    pen_holder();
+}
+
+translate([base_length + 5, 0, 0]) {
+    note_holder();
+}    
